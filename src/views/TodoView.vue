@@ -1,21 +1,19 @@
 <template>
     <div class="about">
     <input v-model="text" @keyup.enter="getInput">
-    <h2>Todo</h2>
-    <ul>
-        <li v-for="item in todoList" @click="toggleDone(item.id, item.done)" :key="item.id"> {{ item.task }} </li>
-    </ul>
+    
+    <h2 class="green">Todo</h2>
+    <TaskListItem v-for="item in todoList" @click="toggleDone(item.id, item.done)" :key="item.id"> {{ item.task }} </TaskListItem>
 
-    <h2>Done</h2>
-    <ul>
-        <li v-for="item in doneList" @click="toggleDone(item.id, item.done)" :key="item.id"> {{ item.task }} </li>
-    </ul>
+    <h2 class="green">Done</h2>
+    <TaskListItem v-for="item in doneList" @click="toggleDone(item.id, item.done)" :key="item.id"> {{ item.task }} </TaskListItem>
     </div>
 </template>
 
 <script setup>
   import { ref,computed } from 'vue'
   import { addTask, getTasks, toggleDone } from '@/firebase'
+  import TaskListItem from '../components/TaskListItem.vue'
 
   const text = ref('')
   function getInput() {
@@ -64,6 +62,5 @@
 
 </script>
 
-<style>
-
+<style scoped>
 </style>
