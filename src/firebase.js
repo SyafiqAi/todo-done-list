@@ -57,6 +57,9 @@ export function getTasks() {
       });
     tasks.value = docs
     // console.log(tasks.value)
+    docs.forEach(d => {
+      console.log(d.dateAdded)
+    })
   });
 
   onUnmounted(unsubscribe)
