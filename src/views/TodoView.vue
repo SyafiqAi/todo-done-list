@@ -25,7 +25,7 @@
     const task = {
       task: text.value,
       done: false,
-      dateAdded: new Date().toLocaleString(),
+      dateAdded: new Date(),
       dateCompleted: null
     }
     text.value = ''
@@ -35,16 +35,30 @@
   const taskList = getTasks()
 
   const doneList = computed(() =>{
-    return taskList.value.filter((item)=>{
+    const dl = taskList.value.filter((item)=>{
       return item.done == true
     })
+
+    dl.sort(sortDate)
+    
+    return dl
   })
 
   const todoList = computed(() =>{
-    return taskList.value.filter((item)=>{
+    const tl = taskList.value.filter((item)=>{
       return item.done == false
     })
+
+    tl.sort(sortDate)
+    
+    return tl.reverse()
   })
+
+  function sortDate(b,a) {
+    let da = new Date(a.dateAdded),
+    db = new Date(b.dateAdded);
+    return da - db;
+  }
 
   
 

@@ -56,7 +56,7 @@ export function getTasks() {
         docs.push(dat)
       });
     tasks.value = docs
-    console.log(tasks.value)
+    // console.log(tasks.value)
   });
 
   onUnmounted(unsubscribe)
@@ -64,6 +64,10 @@ export function getTasks() {
 }
 
 export async function toggleDone(id, done) {
+  done = !done
   const taskRef = doc(db, "users", "syafiq", "tasks", id)
-  await setDoc(taskRef, {done: !done}, {merge: true}); 
+  await setDoc(taskRef, {
+    done: done,
+    dateCompleted: done ? new Date() : null
+  }, {merge: true}); 
 }
