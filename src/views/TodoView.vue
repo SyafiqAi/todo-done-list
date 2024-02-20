@@ -30,8 +30,9 @@
       dateAdded: Date.now(),
       dateCompleted: done ? Date.now() : null
     }
+
     addTask(task).then(() => {
-      showConfetti()
+      if(done) {showConfetti()}
     })
   }
 
