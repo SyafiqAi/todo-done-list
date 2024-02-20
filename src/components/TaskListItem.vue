@@ -26,10 +26,11 @@
     const props = defineProps(['item'])
     
     function taskClicked() {
-        if (!props.item.done) {
-            showConfetti()
-        }
-        toggleDone(props.item.id, props.item.done, Date.now())
+        toggleDone(props.item.id, props.item.done, Date.now()).then(() => {
+            if (!props.item.done) {
+                showConfetti()
+            }
+        })
     }
 
     function deleteClicked() {
