@@ -9,6 +9,7 @@ import {
   onSnapshot,
   query,
   where,
+  deleteDoc,
   collection } from "firebase/firestore"; 
 import { ref, onUnmounted } from "vue";
 
@@ -56,21 +57,28 @@ export function getTasks() {
         docs.push(dat)
       });
     tasks.value = docs
+    // console.log(docs)
     // console.log(tasks.value)
-    docs.forEach(d => {
-      console.log(d.dateAdded)
-    })
+    // docs.forEach(d => {
+    //   const date = new Date(d.dateAdded)
+    //   console.log(date)
+    // })
   });
 
   onUnmounted(unsubscribe)
   return tasks
 }
 
-export async function toggleDone(id, done) {
+export async function toggleDone(id, done, dateCompleted) {
   done = !done
   const taskRef = doc(db, "users", "syafiq", "tasks", id)
   await setDoc(taskRef, {
     done: done,
-    dateCompleted: done ? new Date() : null
+    dateCompleted: done ? dateCompleted: null
   }, {merge: true}); 
+}
+
+export async function deleteTask(id) {
+  const taskRef = doc(db, "users", "syafiq", "tasks", id)
+  await deleteDoc(taskRef);
 }

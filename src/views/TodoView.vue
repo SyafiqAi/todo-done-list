@@ -3,10 +3,10 @@
     <input v-model="text" @keyup.enter="getInput">
     
     <h2 class="green">Todo</h2>
-    <TaskListItem v-for="item in todoList" @click="toggleDone(item.id, item.done)" :key="item.id"> {{ item.task }} </TaskListItem>
+    <TaskListItem v-for="item in todoList" :key="item.id" :item="item" />
 
     <h2 class="green">Done</h2>
-    <TaskListItem v-for="item in doneList" @click="toggleDone(item.id, item.done)" :key="item.id"> {{ item.task }} </TaskListItem>
+    <TaskListItem v-for="item in doneList" :key="item.id" :item="item" />
     </div>
 </template>
 
