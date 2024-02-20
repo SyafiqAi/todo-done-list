@@ -19,13 +19,16 @@
 <script setup>
     import { computed, ref } from "vue";
     import { deleteTask, toggleDone } from "../firebase"
-    // import 
+    import { showConfetti } from '../main'
 
     const hover = ref(false)
 
     const props = defineProps(['item'])
     
     function taskClicked() {
+        if (!props.item.done) {
+            showConfetti()
+        }
         toggleDone(props.item.id, props.item.done, Date.now())
     }
 

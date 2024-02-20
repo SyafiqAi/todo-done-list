@@ -14,7 +14,7 @@
   import { ref,computed } from 'vue'
   import { addTask, getTasks, toggleDone } from '@/firebase'
   import TaskListItem from '../components/TaskListItem.vue'
-
+  
   const text = ref('')
   function getInput() {
     if (text.value == '') 
@@ -58,7 +58,7 @@
     return da - db;
   }
 
-  
+
 
 </script>
 
