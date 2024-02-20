@@ -13,9 +13,17 @@ app.use(router)
 app.mount('#app')
 
 export async function showConfetti() {
-    const jsConfetti = new JSConfetti()
+    const delay = 500;
+    for(var i = 0 ; i < 3 ; i++) {
+        setTimeout(() => {
+            confetti()
+        },delay*i)
+    }
     
-    jsConfetti.addConfetti().then(() => {
-      jsConfetti.clearCanvas()
-    })
+    async function confetti() {
+        const jsConfetti = new JSConfetti()
+        jsConfetti.addConfetti().then(() => {
+          jsConfetti.clearCanvas()
+        })
+    }
 }
