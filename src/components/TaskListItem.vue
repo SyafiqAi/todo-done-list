@@ -4,15 +4,15 @@
     >
         <div class="tli" @click="taskClicked">
             {{ item.task }}
-            <br>
-            <div class="date-display">
+            <!-- <div v-if="item.done" class="date-display">
                 {{ date }}
-            </div>
+            </div> -->
         </div>
         <div :class="{invisible: !hover}" class="delete-button"
             @click="deleteClicked"
         >✖</div>
     </div>
+    <div style="height:10px" class="spacer"></div>
 
 </template>
 
@@ -37,7 +37,7 @@
         var d = props.item.done ? props.item.dateCompleted : props.item.dateAdded;
         d = new Date(d)
         d = d.toLocaleString()
-        d = props.item.done ? 'Completed: ' + d : 'Added: ' + d;
+        // d = props.item.done ? 'Completed: ' + d : 'Added: ' + d;
         return d;
     })
 
@@ -58,7 +58,7 @@
         width: fit-content;
         border-right: 1px solid hsla(160, 100%, 37%, 0.5);
         border-bottom: 1px solid hsla(160, 100%, 37%, 0.5);
-        margin-bottom: 10px;
+        /* margin-bottom: 10px; */
     }
     .tli-container {
         display: flex;
