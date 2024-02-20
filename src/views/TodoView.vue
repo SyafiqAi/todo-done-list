@@ -23,7 +23,7 @@
     const task = {
       task: text.value,
       done: false,
-      dateAdded: new Date(),
+      dateAdded: Date.now(),
       dateCompleted: null
     }
     text.value = ''

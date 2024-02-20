@@ -4,6 +4,10 @@
     >
         <div class="tli" @click="taskClicked">
             {{ item.task }}
+            <br>
+            <div class="date-display">
+                {{ date }}
+            </div>
         </div>
         <div :class="{invisible: !hover}" class="delete-button"
             @click="deleteClicked"
@@ -13,7 +17,7 @@
 </template>
 
 <script setup>
-    import { ref } from "vue";
+    import { computed, ref } from "vue";
     import { deleteTask, toggleDone } from "../firebase"
     // import 
 
@@ -22,11 +26,21 @@
     const props = defineProps(['item'])
     
     function taskClicked() {
-        toggleDone(props.item.id, props.item.done, new Date())
+        toggleDone(props.item.id, props.item.done, Date.now())
     }
+
     function deleteClicked() {
         deleteTask(props.item.id)
     }
+
+    const date = computed(() => {
+        var d = props.item.done ? props.item.dateCompleted : props.item.dateAdded;
+        d = new Date(d)
+        d = d.toLocaleString()
+        d = props.item.done ? 'Completed: ' + d : 'Added: ' + d;
+        return d;
+    })
+
 </script>
 <style scoped>
     .tli:hover {
@@ -38,10 +52,13 @@
         /* color: hsla(160, 100%, 37%, 1); */
         font-size: 105%;
         display: flex;
+        flex-direction: column;
+        /* align-items: flex-end; */
         padding: 5px;
         width: fit-content;
         border-right: 1px solid hsla(160, 100%, 37%, 0.5);
         border-bottom: 1px solid hsla(160, 100%, 37%, 0.5);
+        margin-bottom: 10px;
     }
     .tli-container {
         display: flex;
@@ -55,5 +72,9 @@
     }
     .invisible {
         visibility: hidden;
+    }
+    .date-display {
+        opacity: 0.5;
+        font-size: 0.7em;
     }
 </style>
