@@ -12,7 +12,7 @@
             @click="deleteClicked"
         >✖</div>
     </div>
-    <div style="height:10px" class="spacer"></div>
+    <div class="spacer"></div>
 
 </template>
 

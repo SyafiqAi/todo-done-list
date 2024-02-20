@@ -1,12 +1,14 @@
 <template>
     <div class="about">
-    <input v-model="text" @keyup.enter="getInput">
-    
-    <h2 class="green">Todo:</h2>
-    <TaskListItem v-for="item in todoList" :key="item.id" :item="item" />
+      <!-- <input v-model="text" @keyup.enter="getInput"> -->
+      
+      <h2 class="green">Todo:</h2>
+      <TaskInput @userInput="getInput" :done="false" placeholder="Take a shower!"/>
+      <TaskListItem v-for="item in todoList" :key="item.id" :item="item" />
 
-    <h2 class="green">Done:</h2>
-    <TaskListItem v-for="item in doneList" :key="item.id" :item="item" />
+      <h2 class="green">Done:</h2>
+      <TaskInput @userInput="getInput" :done="true" placeholder="Drink some water!"/>
+      <TaskListItem v-for="item in doneList" :key="item.id" :item="item" />
     </div>
 </template>
 
@@ -14,20 +16,23 @@
   import { ref,computed } from 'vue'
   import { addTask, getTasks, toggleDone } from '@/firebase'
   import TaskListItem from '../components/TaskListItem.vue'
+  import TaskInput from '../components/TaskInput.vue'
+  import { showConfetti } from '../main'
   
-  const text = ref('')
-  function getInput() {
-    if (text.value == '') 
+  // const text = ref('')
+  function getInput(text, done) {
+    if (text == '') 
       return
 
     const task = {
-      task: text.value,
-      done: false,
+      task: text,
+      done: done,
       dateAdded: Date.now(),
-      dateCompleted: null
+      dateCompleted: done ? Date.now() : null
     }
-    text.value = ''
-    addTask(task)
+    addTask(task).then(() => {
+      showConfetti()
+    })
   }
 
   const taskList = getTasks()
