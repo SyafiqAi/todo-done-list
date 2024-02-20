@@ -40,6 +40,12 @@
     dl.sort(sortDate)
     
     return dl
+
+    function sortDate(b,a) {
+      let da = new Date(a.dateCompleted),
+      db = new Date(b.dateCompleted);
+      return da - db;
+    }
   })
 
   const todoList = computed(() =>{
@@ -50,13 +56,14 @@
     tl.sort(sortDate)
     
     return tl.reverse()
+    
+    function sortDate(b,a) {
+      let da = new Date(a.dateAdded),
+      db = new Date(b.dateAdded);
+      return da - db;
+    }
   })
 
-  function sortDate(b,a) {
-    let da = new Date(a.dateAdded),
-    db = new Date(b.dateAdded);
-    return da - db;
-  }
 
 
 
